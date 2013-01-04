@@ -10,6 +10,7 @@ namespace Raven.Contacts.Controllers
 		public IDocumentSession RavenSession { 
 			get
 			{
+				//lazy load, only create session if its requested.
 				return _ravenSession ?? (_ravenSession = MvcApplication.Store.OpenSession());
 			}
 			protected set { _ravenSession = value; }
@@ -18,6 +19,10 @@ namespace Raven.Contacts.Controllers
 		protected override void OnActionExecuted(ActionExecutedContext filterContext)
 		{
 			if (filterContext.IsChildAction)
+				return;
+
+			//if session was not created, dont do anything...
+			if (RavenSession == null)
 				return;
 
 			using (RavenSession)

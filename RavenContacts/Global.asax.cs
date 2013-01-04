@@ -31,7 +31,7 @@ namespace Raven.Contacts
 
 			Store = new DocumentStore()
 				{
-					ConnectionStringName = "Raven-Contacts"
+					ConnectionStringName = "Raven-Default"
 				};
 			Store.Initialize();
 			IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), Store);
